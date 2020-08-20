@@ -1,0 +1,45 @@
+{
+  "name": "foondo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --no-deprecation server.js",
+    "restart": "NODE_ENV=development nodemon --no-deprecation server.js node",
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "cross-env NODE_ENV=tests jest --config jest.config.json --silent",
+    "test-debug": "cross-env NODE_ENV=tests jest --config jest.config.json --debug",
+    "watch": "jest --config jest.config.json --watch --silent",
+    "watchAll": "jest --config jest.config.json --watchAll --silent",
+    "e2e": "jest --config jest-e2e.config.json",
+    "e2eWatch": "jest --config jest-e2e.config.json --watch --silent",
+    "start-production": "NODE_ENV=production node --no-deprecation server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "eslint": "^6.8.0",
+    "eslint-config-salt": "^1.0.1",
+    "eslint-plugin-import": "^2.20.2",
+    "jest": "^26.4.0",
+    "nodemon": "^2.0.3",
+    "supertest": "^4.0.2"
+  },
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "@sentry/node": "^5.20.1",
+    "body-parser": "^1.19.0",
+    "combined-stream": "^1.0.8",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "faunadb": "^2.14.2",
+    "flat-cache": "^2.0.1",
+    "memory-cache": "^0.2.0",
+    "node-fetch": "^2.6.0",
+    "unirest": "^0.6.0",
+    "faunadb-connector": "^1.0.4",
+    "uuid": "^8.0.0"
+  }
+}
