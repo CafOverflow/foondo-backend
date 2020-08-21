@@ -8,7 +8,7 @@
     "restart": "NODE_ENV=development nodemon --no-deprecation server.js node",
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "test": "cross-env NODE_ENV=tests jest --config jest.config.json --silent",
+    "test": "cross-env NODE_ENV=tests jest --config jest.config.json --silent --forceExit",
     "test-debug": "cross-env NODE_ENV=tests jest --config jest.config.json --debug",
     "watch": "jest --config jest.config.json --watch --silent",
     "watchAll": "jest --config jest.config.json --watchAll --silent",
