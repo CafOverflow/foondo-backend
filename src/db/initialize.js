@@ -3,7 +3,10 @@ const FaunaConnection = require('faunadb-connector');
 
 require('dotenv').config();
 
-const fauna = new FaunaConnection({ secret: 'fnADzdzylVACBdT9eJ07EzEivQOq7NjkW62xfh2R' });
+const fauna = new FaunaConnection({ secret: process.env.FAUNADB_SERVER_SECRET });
+
+const faunaSecret = process.env.FAUNADB_SERVER_SECRET;
+console.log(faunaSecret);
 
 function initializeUserCollection() { // creates user collection, with index for all, and 3 users
   const quinn = {
@@ -11,6 +14,7 @@ function initializeUserCollection() { // creates user collection, with index for
     email: 'quinn@gmail.com',
     password: 'secret',
     fridges: [],
+    recipes: [],
   };
 
   const masha = {
@@ -18,6 +22,7 @@ function initializeUserCollection() { // creates user collection, with index for
     email: 'masha@gmail.com',
     password: 'secret',
     fridges: [],
+    recipes: [],
   };
 
   const nishi = {
@@ -25,6 +30,7 @@ function initializeUserCollection() { // creates user collection, with index for
     email: 'nishi@gmail.com',
     password: 'secret',
     fridges: [],
+    recipes: [],
   };
 
   fauna
@@ -75,6 +81,7 @@ function createWout() {
     email: 'wout@gmail.com',
     password: 'secret',
     fridges: [],
+    recipes: [],
   };
   fauna
     .create('users', wout)
@@ -104,5 +111,4 @@ function initializeFridgeIndex() {
     .catch(err => console.log(err));
 }
 
-fauna
-  .createIndex('allFridges', 'fridges');
+// createWout();

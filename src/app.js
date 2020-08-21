@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const sentry = require('@sentry/node');
-// const db = require('./db/db');
+// const db = require('./controllers/dbController');
 const recipesController = require('./controllers/recipesController');
 const errorHandler = require('./middlewares/errorHandler');
 

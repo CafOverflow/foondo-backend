@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const FaunaConnection = require('faunadb-connector');
+const array = require('lodash/array');
 
 require('dotenv').config();
 
@@ -16,7 +17,12 @@ function createUser(data) {
   //   user: 'kappa',
   //   email: 'kappa@gmail.com',
   //   password: 'secret',
+  //   diet: {
+  //     restrictions: [],
+  //     excluded: [],
+  //   }
   //   fridges: [],
+  //   recipes: [],
   // };
   return fauna
     .create('users', data)
@@ -65,6 +71,20 @@ function addFridgeToUser(userRef, fridgeRef) {
     .then(data => updateDetails(userRef, data));
 }
 
+function addFavRecipe(userRef, recipe) {
+  getDataFromRef(userRef)
+    .then(res => logAndReturn(res.data.recipes))
+    .then(recipes => ({ recipes: [recipe, ...recipes] }))
+    .then(data => updateDetails(userRef, data));
+}
+
+function removeFavRecipe(userRef, recipe) {
+  getDataFromRef(userRef)
+    .then(res => logAndReturn(res.data.recipes))
+    .then(recipes => ({ recipes: array.remove(recipes, item => item.id === recipe.id) }))
+    .then(data => updateDetails(userRef, data));
+}
+
 module.exports = {
   createUser,
   getDataFromRef,
@@ -73,4 +93,6 @@ module.exports = {
   deleteUserByRef,
   updateDetails,
   addFridgeToUser,
+  addFavRecipe,
+  removeFavRecipe,
 };
