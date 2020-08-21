@@ -13,6 +13,7 @@ async function ingredientsAutocomplete(req, res) {
   const queryString = `query=${req.query.query}`;
 
   const ingredientList = await recipesService.ingredientsAutocomplete(queryString);
+
   res.status(200).json(ingredientList);
 }
 
@@ -27,7 +28,8 @@ async function complexSearch(req, res) {
     return `${key}=${att}`;
   }).join('&');
 
-  const recipeList = await recipesService.complexSearch(query);
+  let recipeList = await recipesService.complexSearch(query);
+  recipeList = recipeList.results;
   res.status(200).json(recipeList);
 }
 

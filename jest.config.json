@@ -2,7 +2,8 @@
   "testEnvironment": "node",
   "testTimeout": 10000,
   "coveragePathIgnorePatterns": [
-    "/node_modules/"
+    "/node_modules/",
+    "/tests/"
   ],
   "collectCoverage": true,
   "coverageDirectory": "./tests/coverage"
