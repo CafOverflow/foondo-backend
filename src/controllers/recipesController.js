@@ -1,5 +1,21 @@
 const recipesService = require('../service/recipesService');
 
+function addFavRecipe(req, res) {
+  const { id } = req.params;
+  console.log(id);
+  // userRef will be in the auth token
+  // recipesService.addFavRecipe(userRef, recipe);
+  res.status(200).json('to be implemented');
+}
+
+function removeFavRecipe(req, res) {
+  const { id } = req.params;
+  console.log(id);
+  // userRef will be in the auth token
+  // recipesService.removeFavRecipe(userRef, recipe);
+  res.status(200).json('to be implemented');
+}
+
 async function getRecipesByIngredients(req, res) {
   const ingredientList = req.query.ingredients
     .split(',')
@@ -34,6 +50,8 @@ async function complexSearch(req, res) {
 }
 
 module.exports = {
+  addFavRecipe,
+  removeFavRecipe,
   getRecipesByIngredients,
   complexSearch,
   ingredientsAutocomplete,

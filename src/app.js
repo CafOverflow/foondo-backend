@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const sentry = require('@sentry/node');
 // const db = require('./controllers/dbController');
 const recipesController = require('./controllers/recipesController');
+const userController = require('./controllers/userController');
 const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
@@ -39,6 +40,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 // });
 
 /* ROUTES */
+
+/* user */
+app.post('/user', userController.createUser);
+app.get('/user/:name', userController.getUser);
+app.delete('/user/:name', userController.deleteUser);
+
+/* recipes */
+app.post('/recipes/:id');
+app.post('/recipes/:id');
 app.get('/recipes', recipesController.getRecipesByIngredients);
 app.get('/recipes/complexSearch', recipesController.complexSearch);
 app.get('/food/ingredients/autocomplete', recipesController.ingredientsAutocomplete);
