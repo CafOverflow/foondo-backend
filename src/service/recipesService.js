@@ -1,6 +1,23 @@
 const spoonacular = require('../client/spoonacularClient');
+const userDb = require('../db/userDb');
 
 const returnedQuantity = 10;
+
+function addFavRecipe(userRef, recipe) {
+  if ('id' in recipe) {
+    userDb.addFavRecipe(userRef, recipe);
+  } else {
+    throw new Error('Invalid recipe structure - must have ID');
+  }
+}
+
+function removeFavRecipe(userRef, recipe) {
+  try {
+    userDb.removeFavRecipe(userRef, recipe);
+  } catch (e) {
+    throw new Error('failed to remove favourite recipe - check that it is actually bookmarked');
+  }
+}
 
 async function getRecipesByIngredients(ingredientList) {
   const path = 'recipes/findByIngredients';
@@ -45,6 +62,8 @@ async function complexSearch(queryString) {
 }
 
 module.exports = {
+  addFavRecipe,
+  removeFavRecipe,
   getRecipesByIngredients,
   ingredientsAutocomplete,
   complexSearch,
