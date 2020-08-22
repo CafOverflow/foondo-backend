@@ -1,7 +1,17 @@
 const jwt = require('jsonwebtoken');
+const userService = require('./userService');
 
-function validUser(email, password) {
-  return true;
+function validateCredentials(userData, password) {
+  if (!userData) {
+    const error = new Error('User not found!');
+    error.statusCode = 400;
+    throw error;
+  }
+  if (userData.password !== password) {
+    const error = new Error('Wrong password!');
+    error.statusCode = 400;
+    throw error;
+  }
 }
 
 function generateAccessToken(email) {
@@ -11,10 +21,16 @@ function generateAccessToken(email) {
 }
 
 function authenticate(email, password) {
-  // getUser
-  if (validUser(email, password)) {
-    generateAccessToken(email);
-  }
+  // userService.getUser(email, (userData) => validateCredentials(userData, password));
+
+  userService.getUser(email)
+    .then(userData => validateCredentials(userData, password))
+    .catch(err => { throw err; });
+
+  // const userData = userService.getUser(email, data => data);
+  // validateCredentials(userData, password);
+
+  // generateAccessToken(email);
 }
 
 module.exports = {

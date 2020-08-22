@@ -7,7 +7,7 @@ require('dotenv').config();
 const fauna = new FaunaConnection({ secret: process.env.FAUNADB_SERVER_SECRET });
 
 function logAndReturn(thing) {
-  console.log(thing);
+  // console.log(thing);
   return thing;
 }
 
@@ -53,6 +53,14 @@ function getDataFromName(name) {
     .catch(err => console.log(err));
 }
 
+function getDataFromEmail(email) {
+  console.log(`retreiving data for user email ${email}`);
+  return fauna
+    .getMatch('userByEmail', email)
+    .then(res => logAndReturn(res.data))
+    .catch(err => console.log(err));
+}
+
 function deleteUserByRef(ref) {
   console.log(`deleting document for ref ${ref}`);
   return fauna
@@ -91,6 +99,7 @@ module.exports = {
   getDataFromRef,
   getDataFromName,
   getRefFromName,
+  getDataFromEmail,
   deleteUserByRef,
   updateDetails,
   addFridgeToUser,

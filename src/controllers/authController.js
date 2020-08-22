@@ -2,8 +2,6 @@ const Joi = require('@hapi/joi');
 const authService = require('../service/authService');
 
 function validateInput(userData) {
-  console.log(userData);
-
   const itemSchema = Joi.object().keys({
     email: Joi.string().email({ minDomainSegments: 2 }).required(),
     password: Joi.string().required(),
@@ -18,14 +16,17 @@ function validateInput(userData) {
   }
 }
 
-function login(req, res) {
-  validateInput(req.body.data);
+function login(req, res, next) {
+  try {
+    validateInput(req.body.data);
 
-  const { email } = req.body.data;
-  const { password } = req.body.data;
-  // const jwt = authService.authenticate(email, password);
-  // res.status(201).json(jwt);
-  res.status(201).json(true);
+    const { email } = req.body.data;
+    const { password } = req.body.data;
+    const jwt = authService.authenticate(email, password);
+    res.status(201).json(jwt);
+  } catch (err) {
+    next(err);
+  }
 }
 
 module.exports = {
