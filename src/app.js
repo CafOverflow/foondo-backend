@@ -3,10 +3,11 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const sentry = require('@sentry/node');
-// const db = require('./controllers/dbController');
 const recipesController = require('./controllers/recipesController');
 const userController = require('./controllers/userController');
-const errorHandler = require('./middlewares/errorHandler');
+const errorHandlerMiddleware = require('./middlewares/errorHandlerMiddleware');
+const authMiddleware = require('./middlewares/authMiddleware');
+const authController = require('./controllers/authController');
 
 const app = express();
 
@@ -21,28 +22,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-/* DB TEST */
-// app.post('/names', (req, res) => {
-//   console.log('db.addEntry');
-//   db.addEntry(req.body, data => {
-//     console.log(data);
-//     res.status(200)
-//       .send();
-//   });
-// });
-
-// app.get('/names', (req, res) => {
-//   console.log('db.readAll');
-//   db.readlAll(data => {
-//     console.log(data);
-//     res.json(data);
-//   });
-// });
-
 /* ROUTES */
 
 /* user */
 app.post('/user', userController.createUser);
+app.post('/login', authController.login);
+app.use(authMiddleware.authenticateToken);
 app.get('/user/:name', userController.getUser);
 app.delete('/user/:name', userController.deleteUser);
 
@@ -59,6 +44,6 @@ app.get('/debug-sentry', () => {
 });
 app.use(sentry.Handlers.errorHandler());
 
-app.use(errorHandler.handle);
+app.use(errorHandlerMiddleware.handle);
 
 module.exports.app = app;
