@@ -17,7 +17,7 @@ function createUser(req, res) {
   // };
 
   userService.createUser(data);
-  res.status(201);
+  return res.status(201);
 }
 
 function getUser(req, res) {

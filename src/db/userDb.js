@@ -61,6 +61,14 @@ function getDataFromEmail(email) {
     .catch(err => console.log(err));
 }
 
+function getFromEmail(email) {
+  console.log(`retreiving all for user email ${email}`);
+  return fauna
+    .getMatch('userByEmail', email)
+    .then(res => logAndReturn(res))
+    .catch(err => console.log(err));
+}
+
 function deleteUserByRef(ref) {
   console.log(`deleting document for ref ${ref}`);
   return fauna
@@ -100,6 +108,7 @@ module.exports = {
   getDataFromName,
   getRefFromName,
   getDataFromEmail,
+  getFromEmail,
   deleteUserByRef,
   updateDetails,
   addFridgeToUser,
