@@ -15,9 +15,9 @@ function createUser(data) {
   //   fridges: [],
   //   recipes: [],
   // };
-  const { username, password, email } = data;
+  const { name, password, email } = data;
   const user = {
-    user: username,
+    name,
     password,
     email,
     diet: {
@@ -29,6 +29,11 @@ function createUser(data) {
   };
   userDb.createUser(user)
     .then(response => console.log(response));
+}
+
+function getUser(ownerRef, cb) {
+  userDb.getDataFromName
+    .then(res => cb(res));
 }
 
 function addFridgeToUser(ownerRef, name) {
@@ -64,29 +69,30 @@ function removeFavRecipe(userRef, recipe) {
   }
 }
 
-// const quinn = {
-//   user: 'Quinn',
-//   email: 'quinn@gmail.com',
-//   password: 'secret',
-// };
+const quinn = {
+  name: 'Quinn',
+  email: 'quinn@gmail.com',
+  password: 'secret',
+};
 
-// const masha = {
-//   user: 'Masha',
-//   email: 'masha@gmail.com',
-//   password: 'secret',
-// };
+const masha = {
+  name: 'Masha',
+  email: 'masha@gmail.com',
+  password: 'secret',
+};
 
-// const nishi = {
-//   user: 'Nishi',
-//   email: 'nishi@gmail.com',
-//   password: 'secret',
-// };
+const nishi = {
+  name: 'Nishi',
+  email: 'nishi@gmail.com',
+  password: 'secret',
+};
 
-// createUser(quinn);
-// createUser(masha);
-// createUser(nishi);
+createUser(quinn);
+createUser(masha);
+createUser(nishi);
 
 module.exports = {
+  getUser,
   createUser,
   addFridgeToUser,
   deleteUser,

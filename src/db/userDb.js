@@ -14,7 +14,7 @@ function logAndReturn(thing) {
 function createUser(data) {
   // sample:
   // data = {
-  //   user: 'kappa',
+  //   name: 'kappa',
   //   email: 'kappa@gmail.com',
   //   password: 'secret',
   //   diet: {
@@ -49,7 +49,8 @@ function getDataFromName(name) {
   console.log(`retreiving data for user name ${name}`);
   return fauna
     .getMatch('userByName', name)
-    .then(res => logAndReturn(res.data));
+    .then(res => logAndReturn(res.data))
+    .catch(err => console.log(err));
 }
 
 function deleteUserByRef(ref) {
