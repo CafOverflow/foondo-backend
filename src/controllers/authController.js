@@ -16,14 +16,14 @@ function validateInput(userData) {
   }
 }
 
-function login(req, res, next) {
+async function login(req, res, next) {
   try {
     validateInput(req.body.data);
 
     const { email } = req.body.data;
     const { password } = req.body.data;
-    const jwt = authService.authenticate(email, password);
-    res.status(201).json(jwt);
+    const jwt = await authService.authenticate(email, password);
+    res.status(201).json({ jwt });
   } catch (err) {
     next(err);
   }

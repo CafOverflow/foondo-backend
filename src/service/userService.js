@@ -17,9 +17,9 @@ function createUser(data) {
     .then(response => console.log(response));
 }
 
-function getUser(email) {
-  return userDb.getDataFromEmail(email);
-  // .then(res => cb(res));
+function getUser(email, cb) {
+  return userDb.getDataFromEmail(email)
+    .then(res => cb(res));
 }
 
 function deleteUser(userRef) {

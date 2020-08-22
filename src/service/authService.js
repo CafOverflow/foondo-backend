@@ -1,36 +1,36 @@
 const jwt = require('jsonwebtoken');
 const userService = require('./userService');
+require('dotenv').config();
 
 function validateCredentials(userData, password) {
   if (!userData) {
     const error = new Error('User not found!');
     error.statusCode = 400;
-    throw error;
+    return error;
   }
   if (userData.password !== password) {
     const error = new Error('Wrong password!');
     error.statusCode = 400;
-    throw error;
+    return error;
   }
+  return null;
 }
 
 function generateAccessToken(email) {
   // expires after half an hour (1800 seconds = 30 minutes)
-  const token = jwt.sign(email, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
+  const token = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30 days' });
   return token;
 }
 
-function authenticate(email, password) {
-  // userService.getUser(email, (userData) => validateCredentials(userData, password));
+async function authenticate(email, password) {
+  const validationError = await userService
+    .getUser(email, userData => validateCredentials(userData, password));
 
-  userService.getUser(email)
-    .then(userData => validateCredentials(userData, password))
-    .catch(err => { throw err; });
+  if (validationError) {
+    throw (validationError);
+  }
 
-  // const userData = userService.getUser(email, data => data);
-  // validateCredentials(userData, password);
-
-  // generateAccessToken(email);
+  return generateAccessToken(email);
 }
 
 module.exports = {
