@@ -14,7 +14,7 @@
     "watchAll": "jest --config jest.config.json --watchAll --silent",
     "e2e": "jest --config jest-e2e.config.json",
     "e2eWatch": "jest --config jest-e2e.config.json --watch --silent",
-    "start-production": "NODE_ENV=production node --no-deprecation server.js"
+    "start-production": "NODE_ENV=production node --no-deprecation app.js"
   },
   "author": "",
   "license": "MIT",
