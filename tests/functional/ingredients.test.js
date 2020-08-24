@@ -16,6 +16,6 @@ describe('Ingredients endpoint', () => {
     const res = await request(server)
       .get('/food/ingredients/autocomplete?ingredients=apple')
       .send();
-    expect(res.statusCode).toEqual(200);
+    expect(res.statusCode).toEqual(401); // forbidden
   });
 });
