@@ -1,13 +1,12 @@
 /* eslint-disable no-console */
 const FaunaConnection = require('faunadb-connector');
-const array = require('lodash/array');
 
 require('dotenv').config();
 
 const fauna = new FaunaConnection({ secret: process.env.FAUNADB_SERVER_SECRET });
 
 function logAndReturn(thing) {
-  // console.log(thing);
+  console.log(thing);
   return thing;
 }
 
@@ -24,6 +23,7 @@ function createUser(data) {
   //   fridges: [],
   //   recipes: [],
   // };
+  console.log(`creating user with name ${data.name}`);
   return fauna
     .create('users', data)
     .then(res => logAndReturn(res[0].ref.id))
@@ -76,29 +76,41 @@ function deleteUserByRef(ref) {
 }
 
 function updateDetails(ref, data) {
+  console.log(`updating details for user with ref ${ref}`);
   return fauna
     .update('users', ref, data)
     .then(res => logAndReturn(res));
 }
 
 function addFridgeToUser(userRef, fridgeRef) {
-  getDataFromRef(userRef)
+  return getDataFromRef(userRef)
     .then(res => logAndReturn(res.data.fridges))
     .then(fridges => ({ fridges: [fridgeRef, ...fridges] }))
     .then(data => updateDetails(userRef, data));
 }
 
 function addFavRecipe(userRef, recipe) {
-  getDataFromRef(userRef)
+  console.log(`adding fav recipe to user with ref ${userRef}`);
+  return getDataFromRef(userRef)
     .then(res => logAndReturn(res.data.recipes))
-    .then(recipes => ({ recipes: [recipe, ...recipes] }))
-    .then(data => updateDetails(userRef, data));
+    .then(recipes => {
+      console.log(recipes);
+      if (recipes.findIndex(item => recipe.id === item.id) !== -1) {
+        return { succeeded: false, recipes };
+      }
+      return { succeeded: true, recipes: [recipe, ...recipes] };
+    })
+    .then(data => (data.succeeded
+      ? updateDetails(userRef, data)
+      : data.recipes))
+    .catch(err => { throw err; });
 }
 
-function removeFavRecipe(userRef, recipe) {
+function removeFavRecipe(userRef, id) {
+  console.log(`removing fav recipe from user with ref ${userRef}`);
   getDataFromRef(userRef)
     .then(res => logAndReturn(res.data.recipes))
-    .then(recipes => ({ recipes: array.remove(recipes, item => item.id === recipe.id) }))
+    .then(recipes => ({ recipes: recipes.filter(item => item.id !== id) }))
     .then(data => updateDetails(userRef, data));
 }
 

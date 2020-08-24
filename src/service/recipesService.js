@@ -5,10 +5,9 @@ const returnedQuantity = 10;
 
 function addFavRecipe(userRef, recipe) {
   if ('id' in recipe) {
-    userDb.addFavRecipe(userRef, recipe);
-  } else {
-    throw new Error('Invalid recipe structure - must have ID');
+    return userDb.addFavRecipe(userRef, recipe);
   }
+  throw new Error('Invalid recipe structure - must have ID');
 }
 
 function removeFavRecipe(userRef, recipe) {
