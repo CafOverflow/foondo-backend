@@ -32,8 +32,9 @@ app.get('/user/:name', userController.getUser);
 app.delete('/user/:name', userController.deleteUser);
 
 /* recipes */
-app.post('/recipes/:recipeId', recipesController.addFavRecipe);
-app.delete('/recipes/:recipeId', recipesController.removeFavRecipe);
+// app.post('/recipes/:recipeId', recipesController.addFavRecipe);
+app.post('/recipes/bookmarks/', recipesController.addFavRecipe); // requires full recipe object in req.body.recipe
+app.delete('/recipes/bookmarks/:recipeId', recipesController.removeFavRecipe);
 app.get('/recipes', recipesController.getRecipesByIngredients);
 app.get('/recipes/complexSearch', recipesController.complexSearch);
 app.get('/food/ingredients/autocomplete', recipesController.ingredientsAutocomplete);
