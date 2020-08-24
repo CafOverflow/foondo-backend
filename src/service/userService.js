@@ -13,12 +13,17 @@ function createUser(data) {
     fridges: [],
     recipes: [],
   };
-  userDb.createUser(user)
-    .then(response => console.log(response));
+  return userDb.createUser(user)
+    .then(response => (response));
 }
 
-function getUser(name, cb) {
-  userDb.getDataFromName(name)
+function getUser(email, cb) {
+  return userDb.getDataFromEmail(email)
+    .then(res => cb(res));
+}
+
+function getUserAll(email, cb) {
+  return userDb.getFromEmail(email)
     .then(res => cb(res));
 }
 
@@ -52,5 +57,6 @@ function deleteUser(userRef) {
 module.exports = {
   createUser,
   getUser,
+  getUserAll,
   deleteUser,
 };
