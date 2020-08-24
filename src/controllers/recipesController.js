@@ -2,14 +2,13 @@ const recipesService = require('../service/recipesService');
 
 function addFavRecipe(req, res) {
   const { recipe } = req.body;
-  // console.log(req.user.id);
   // userRef will be in the auth token
   try {
     recipesService.addFavRecipe(req.user.id, recipe);
   } catch (err) {
     console.log(err);
   }
-  res.status(200).json('recipe added to user\'s bookmarks');
+  res.status(200).send('recipe added to user\'s bookmarks');
 }
 
 function removeFavRecipe(req, res) {
@@ -17,7 +16,7 @@ function removeFavRecipe(req, res) {
   // userRef will be in the auth token
   // recipesService.removeFavRecipe(userRef, recipe);
   recipesService.removeFavRecipe(req.user.id, recipeId);
-  res.status(200).json('to be implemented');
+  res.status(200).send('to be implemented');
 }
 
 async function getRecipesByIngredients(req, res) {

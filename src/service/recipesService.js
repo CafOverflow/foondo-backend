@@ -4,7 +4,7 @@ const userDb = require('../db/userDb');
 const returnedQuantity = 10;
 
 function addFavRecipe(userRef, recipe) {
-  if ('id' in recipe) {
+  if (recipe && recipe.id) {
     return userDb.addFavRecipe(userRef, recipe);
   }
   throw new Error('Invalid recipe structure - must have ID');
