@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const sentry = require('@sentry/node');
+const cors = require('cors');
 const recipesController = require('./controllers/recipesController');
 const userController = require('./controllers/userController');
 const errorHandlerMiddleware = require('./middlewares/errorHandlerMiddleware');
@@ -13,10 +14,8 @@ const app = express();
 
 sentry.init({ dsn: process.env.SENTRY_INIT });
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
+app.use(cors());
+
 app.use(sentry.Handlers.requestHandler());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
