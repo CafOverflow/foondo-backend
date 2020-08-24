@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { app } = require('./src/app.js');
 
 console.log('');
@@ -6,4 +7,4 @@ console.log('');
 console.log('      ◎[▪‿▪]◎ ❤         ');
 console.log('');
 
-app.listen(3001);
+app.listen(process.env.PORT || 3001);
