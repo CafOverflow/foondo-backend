@@ -4,7 +4,11 @@ function addFavRecipe(req, res) {
   const { recipe } = req.body;
   // console.log(req.user.id);
   // userRef will be in the auth token
-  recipesService.addFavRecipe(req.user.id, recipe);
+  try {
+    recipesService.addFavRecipe(req.user.id, recipe);
+  } catch (err) {
+    console.log(err);
+  }
   res.status(200).json('recipe added to user\'s bookmarks');
 }
 

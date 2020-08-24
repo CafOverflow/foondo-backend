@@ -93,8 +93,17 @@ function addFavRecipe(userRef, recipe) {
   console.log(`adding fav recipe to user with ref ${userRef}`);
   return getDataFromRef(userRef)
     .then(res => logAndReturn(res.data.recipes))
-    .then(recipes => ({ recipes: [recipe, ...recipes] }))
-    .then(data => updateDetails(userRef, data));
+    .then(recipes => {
+      console.log(recipes);
+      if (recipes.findIndex(item => recipe.id === item.id) !== -1) {
+        return { succeeded: false, recipes };
+      }
+      return { succeeded: true, recipes: [recipe, ...recipes] };
+    })
+    .then(data => (data.succeeded
+      ? updateDetails(userRef, data)
+      : data.recipes))
+    .catch(err => { throw err; });
 }
 
 function removeFavRecipe(userRef, id) {
