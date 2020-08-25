@@ -114,6 +114,18 @@ function removeFavRecipe(userRef, id) {
     .then(data => updateDetails(userRef, data));
 }
 
+function getFavRecipes(userRef) {
+  console.log(`retrieving fav recipes for user ref ${userRef}`);
+  getDataFromRef(userRef)
+    .then(res => logAndReturn(res.data.recipes));
+}
+
+function getDiet(userRef) {
+  console.log(`retrieving dietary information for user ref ${userRef}`);
+  getDataFromRef(userRef)
+    .then(res => logAndReturn(res.data.diet));
+}
+
 module.exports = {
   createUser,
   getDataFromRef,
@@ -126,4 +138,6 @@ module.exports = {
   addFridgeToUser,
   addFavRecipe,
   removeFavRecipe,
+  getFavRecipes,
+  getDiet,
 };
