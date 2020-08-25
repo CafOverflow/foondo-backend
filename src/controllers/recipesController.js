@@ -20,9 +20,7 @@ function removeFavRecipe(req, res) {
 }
 
 async function getRecipesByIngredients(req, res) {
-  const ingredientList = req.query.ingredients
-    .split(',')
-    .join('%2C');
+  const ingredientList = req.params.ingredients;
 
   const recipeList = await recipesService.getRecipesByIngredients(ingredientList);
   res.status(200).json(recipeList);
@@ -43,7 +41,10 @@ async function complexSearch(req, res) {
 
   const query = keys.map(key => {
     let att = queryString[key];
-    att = att.split(',').join('%2C');
+    if (key !== 'intolerances' || key !== 'cuisine' || key !== 'includeIngredients') {
+      att = att.split(',').join('%2C');
+    }
+    att = att.split(' ').join('');
     return `${key}=${att}`;
   }).join('&');
 

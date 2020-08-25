@@ -20,7 +20,7 @@ function removeFavRecipe(userRef, recipe) {
 
 async function getRecipesByIngredients(ingredientList) {
   const path = 'recipes/findByIngredients';
-  const query = `number=${returnedQuantity}&ranking=1&ingredients=${ingredientList}`;
+  const query = `number=${returnedQuantity}&ranking=1&ingredients=${ingredientList}&ignorePantry=true`;
 
   const { body, status } = await spoonacular.get(path, query);
 
