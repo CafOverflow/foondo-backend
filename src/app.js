@@ -34,10 +34,10 @@ app.delete('/user', userController.deleteUser);
 /* recipes */
 app.post('/recipes/bookmarks/', recipesController.addFavRecipe); // requires full recipe object in req.body.recipe
 app.delete('/recipes/bookmarks/:recipeId', recipesController.removeFavRecipe);
+app.get('/recipes/bookmarks/', recipesController.getBookmarks);
 app.get('/recipes/searchByIngredients/:ingredients', recipesController.getRecipesByIngredients);
 app.get('/recipes/complexSearch', recipesController.complexSearch);
 app.get('/food/ingredients/autocomplete', recipesController.ingredientsAutocomplete);
-app.get('/recipes/bookmarks/', recipesController.getBookmarks);
 
 /* diet */
 // app.get('/user/diet', dietController.get)
