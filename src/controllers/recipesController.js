@@ -9,7 +9,7 @@ function addFavRecipe(req, res) {
   } catch (err) {
     console.log(err);
   }
-  res.status(200).send('recipe added to user\'s bookmarks');
+  res.status(204).send();
 }
 
 function removeFavRecipe(req, res) {
@@ -34,7 +34,7 @@ async function getRecipesByIngredients(req, res) {
 }
 
 async function ingredientsAutocomplete(req, res) {
-  const queryString = `query=${req.query.query}`;
+  const queryString = `${req.params.ingredient}`;
 
   const ingredientList = await recipesService.ingredientsAutocomplete(queryString);
 
@@ -55,8 +55,7 @@ async function complexSearch(req, res) {
     return `${key}=${att}`;
   }).join('&');
 
-  let recipeList = await recipesService.complexSearch(query);
-  recipeList = recipeList.results;
+  const recipeList = await recipesService.complexSearch(query);
   res.status(200).json(recipeList);
 }
 

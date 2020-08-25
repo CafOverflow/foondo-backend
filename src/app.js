@@ -37,7 +37,7 @@ app.delete('/recipes/bookmarks/:recipeId', recipesController.removeFavRecipe);
 app.get('/recipes/bookmarks/', recipesController.getBookmarks);
 app.get('/recipes/searchByIngredients/:ingredients', recipesController.getRecipesByIngredients);
 app.get('/recipes/complexSearch', recipesController.complexSearch);
-app.get('/food/ingredients/autocomplete', recipesController.ingredientsAutocomplete);
+app.get('/food/ingredients/autocomplete/:ingredient', recipesController.ingredientsAutocomplete);
 
 /* diet */
 app.get('/user/diet', dietController.getDiet);
