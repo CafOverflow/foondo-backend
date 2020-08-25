@@ -128,8 +128,14 @@ function getFavRecipes(userRef) {
 
 function getDiet(userRef) {
   console.log(`retrieving dietary information for user ref ${userRef}`);
-  getDataFromRef(userRef)
+  return getDataFromRef(userRef)
     .then(res => logAndReturn(res.data.diet));
+}
+
+function getIntolerances(userRef) {
+  console.log(`retrieving intolerance information for user ref ${userRef}`);
+  return getDataFromRef(userRef)
+    .then(res => logAndReturn(res.data.intolerances));
 }
 
 module.exports = {
@@ -146,4 +152,5 @@ module.exports = {
   removeFavRecipe,
   getFavRecipes,
   getDiet,
+  getIntolerances,
 };
