@@ -43,8 +43,18 @@ async function ingredientsAutocomplete(queryString) {
 
   const { body, status } = await spoonacular.get(path, query);
 
+  console.log(body);
+  const parsedBody = body.map(ingredient => {
+    const imageUrl = `https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`;
+    return {
+      name: ingredient.name,
+      image: imageUrl,
+      id: ingredient.id,
+    };
+});
+
   if (status === 200) {
-    return body;
+    return parsedBody;
   } if (status === 404) {
     return {};
   }
