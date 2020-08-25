@@ -12,10 +12,15 @@ function addFavRecipe(userRef, recipe) {
 
 function removeFavRecipe(userRef, recipe) {
   try {
-    userDb.removeFavRecipe(userRef, recipe);
+    return userDb.removeFavRecipe(userRef, recipe);
   } catch (e) {
     throw new Error('failed to remove favourite recipe - check that it is actually bookmarked');
   }
+}
+
+function getBookmarks(userRef) {
+  return userDb.getDataFromRef(userRef)
+    .then(data => data.data.recipes);
 }
 
 async function getRecipesByIngredients(ingredientList) {
@@ -66,4 +71,5 @@ module.exports = {
   getRecipesByIngredients,
   ingredientsAutocomplete,
   complexSearch,
+  getBookmarks,
 };

@@ -2,6 +2,7 @@ const recipesService = require('../service/recipesService');
 
 function addFavRecipe(req, res) {
   const { recipe } = req.body;
+  recipe.id = String(recipe.id);
   // userRef will be in the auth token
   try {
     recipesService.addFavRecipe(req.user.id, recipe);
@@ -13,10 +14,16 @@ function addFavRecipe(req, res) {
 
 function removeFavRecipe(req, res) {
   const { recipeId } = req.params;
+  console.log(`trying to delete bookmark ${recipeId}`);
   // userRef will be in the auth token
   // recipesService.removeFavRecipe(userRef, recipe);
   recipesService.removeFavRecipe(req.user.id, recipeId);
-  res.status(200).send('to be implemented');
+  res.status(204).send();
+}
+
+function getBookmarks(req, res) {
+  recipesService.getBookmarks(req.user.id)
+    .then(data => res.status(200).json(data));
 }
 
 async function getRecipesByIngredients(req, res) {
@@ -59,4 +66,5 @@ module.exports = {
   getRecipesByIngredients,
   complexSearch,
   ingredientsAutocomplete,
+  getBookmarks,
 };

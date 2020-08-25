@@ -110,14 +110,20 @@ function removeFavRecipe(userRef, id) {
   console.log(`removing fav recipe from user with ref ${userRef}`);
   getDataFromRef(userRef)
     .then(res => logAndReturn(res.data.recipes))
-    .then(recipes => ({ recipes: recipes.filter(item => item.id !== id) }))
+    .then(recipes => ({
+      recipes: recipes.filter(item => {
+        console.log('item.id', typeof item.id, item.id);
+        console.log('param id', typeof id, id);
+        return item.id !== id;
+      }),
+    }))
     .then(data => updateDetails(userRef, data));
 }
 
 function getFavRecipes(userRef) {
   console.log(`retrieving fav recipes for user ref ${userRef}`);
   getDataFromRef(userRef)
-    .then(res => logAndReturn(res.data.recipes));
+    .then(res => res.data.recipes);
 }
 
 function getDiet(userRef) {

@@ -9,6 +9,7 @@ const userController = require('./controllers/userController');
 const errorHandlerMiddleware = require('./middlewares/errorHandlerMiddleware');
 const authMiddleware = require('./middlewares/authMiddleware');
 const authController = require('./controllers/authController');
+// const dietController = require('./controllers/dietController');
 
 const app = express();
 
@@ -31,12 +32,16 @@ app.get('/user', userController.getUser);
 app.delete('/user', userController.deleteUser);
 
 /* recipes */
-// app.post('/recipes/:recipeId', recipesController.addFavRecipe);
 app.post('/recipes/bookmarks/', recipesController.addFavRecipe); // requires full recipe object in req.body.recipe
 app.delete('/recipes/bookmarks/:recipeId', recipesController.removeFavRecipe);
+app.get('/recipes/bookmarks/', recipesController.getBookmarks);
 app.get('/recipes/searchByIngredients/:ingredients', recipesController.getRecipesByIngredients);
 app.get('/recipes/complexSearch', recipesController.complexSearch);
 app.get('/food/ingredients/autocomplete', recipesController.ingredientsAutocomplete);
+
+/* diet */
+// app.get('/user/diet', dietController.get)
+// app.post('/user/diet', dietController.setDiet);
 
 /* ERROR HANDLING */
 app.get('/debug-sentry', () => {
