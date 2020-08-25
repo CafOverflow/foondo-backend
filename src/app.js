@@ -9,7 +9,7 @@ const userController = require('./controllers/userController');
 const errorHandlerMiddleware = require('./middlewares/errorHandlerMiddleware');
 const authMiddleware = require('./middlewares/authMiddleware');
 const authController = require('./controllers/authController');
-// const dietController = require('./controllers/dietController');
+const dietController = require('./controllers/dietController');
 
 const app = express();
 
@@ -40,9 +40,10 @@ app.get('/recipes/complexSearch', recipesController.complexSearch);
 app.get('/food/ingredients/autocomplete', recipesController.ingredientsAutocomplete);
 
 /* diet */
-// app.get('/user/diet', dietController.get)
-// app.post('/user/diet', dietController.setDiet);
-
+app.get('/user/diet', dietController.getDiet);
+app.post('/user/diet', dietController.setDiet);
+app.get('/user/intolerances', dietController.getIntolerances);
+app.post('/user/intolerances', dietController.setIntolerances);
 /* ERROR HANDLING */
 app.get('/debug-sentry', () => {
   throw new Error('Sentry error:');

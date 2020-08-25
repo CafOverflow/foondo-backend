@@ -5,10 +5,20 @@ function getDietInfo(userRef) {
 }
 
 function setDietInfo(userRef, data) {
-  return userDb.updateDetails(data);
+  return userDb.updateDetails(userRef, data);
+}
+
+function getIntolerancesInfo(userRef) {
+  return userDb.getIntolerances(userRef);
+}
+
+function setIntolerancesInfo(userRef, data) {
+  return userDb.updateDetails(userRef, data);
 }
 
 module.exports = {
   getDietInfo,
   setDietInfo,
+  getIntolerancesInfo,
+  setIntolerancesInfo,
 };
