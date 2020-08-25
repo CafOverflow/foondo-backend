@@ -39,7 +39,7 @@ async function getRecipesByIngredients(ingredientList) {
 
 async function ingredientsAutocomplete(queryString) {
   const path = 'food/ingredients/autocomplete';
-  const query = `${queryString}&number=${returnedQuantity}&metaInformation=true`;
+  const query = `query=${queryString}&number=${returnedQuantity}&metaInformation=true`;
 
   const { body, status } = await spoonacular.get(path, query);
 
