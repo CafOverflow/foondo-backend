@@ -28,7 +28,7 @@ function getUserAll(email, cb) {
 }
 
 function deleteUser(userRef) {
-  userDb.deleteUserByRef(userRef);
+  return userDb.deleteUserByRef(userRef);
   // .then(doc => doc.data.fridges.forEach(fridgeRef => fridgeDb.deleteFridgeByRef(fridgeRef)));
 }
 
