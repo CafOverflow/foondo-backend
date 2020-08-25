@@ -27,8 +27,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.post('/user', userController.createUser);
 app.post('/login', authController.login);
 app.use(authMiddleware.authenticateToken);
-app.get('/user/:name', userController.getUser);
-app.delete('/user/:name', userController.deleteUser);
+app.get('/user', userController.getUser);
+app.delete('/user', userController.deleteUser);
 
 /* recipes */
 // app.post('/recipes/:recipeId', recipesController.addFavRecipe);

@@ -21,14 +21,14 @@ function createUser(req, res) {
 }
 
 function getUser(req, res) {
-  const { name } = req.params;
+  const { email } = req.body;
   // input sanitization here
-  userService.getUser(name, user => res.status(200).json(user));
+  userService.getUser(email, user => res.status(200).json(user));
 }
 
 function deleteUser(req, res) {
-  const { name } = req.params;
-  console.log(name);
+  const { email } = req.body;
+  console.log(email);
   // input sanitization here
   // to be implemented
   res.status(200).json('to be implemented');
