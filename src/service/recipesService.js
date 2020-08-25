@@ -140,7 +140,7 @@ async function complexSearch(queryString) {
       dishTypes: item.dishTypes,
       diets: item.diets,
       occasions: item.occasions,
-      analyzedInstructions: instructions,
+      analyzedInstructions: [{ name: item.analyzedInstructions[0].name, steps: instructions }],
       usedIngredientCount: item.usedIngredientCount,
       missedIngredientCount: item.missedIngredientCount,
       missedIngredients: item.missedIngredients,
