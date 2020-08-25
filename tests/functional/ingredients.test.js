@@ -1,21 +1,27 @@
 const request = require('supertest');
 const app = require('../testServer');
 
-let server;
+let jwt = null;
 
-beforeAll(() => {
-  server = app.listen(3002);
-});
-
-afterAll(() => {
-  server.close();
+beforeAll(done => {
+  request(app)
+    .post('/login')
+    .set('Content-type', 'application/json')
+    .send({ data: { email: 'lucius@gmail.com', password: 'purr' } })
+    .end((err, response) => {
+      jwt = response.body.jwt; // save the token!
+      done();
+    });
 });
 
 describe('Ingredients endpoint', () => {
   it('should return 200', async () => {
-    const res = await request(server)
-      .get('/food/ingredients/autocomplete?ingredients=apple')
-      .send();
-    expect(res.statusCode).toEqual(401); // forbidden
+    const response = await request(app)
+      .get('/food/ingredients/autocomplete?query=apple')
+      .set('Authorization', `Bearer ${jwt}`)
+      .send()
+      .expect(200);
+
+    expect(response).toHaveProperty(['body', 0, 'name'], 'apple');
   });
 });
