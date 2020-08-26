@@ -10,9 +10,9 @@ function addFavRecipe(userRef, recipe) {
   throw new Error('Invalid recipe structure - must have ID');
 }
 
-function removeFavRecipe(userRef, recipe) {
+function removeFavRecipe(userRef, recipeId) {
   try {
-    return userDb.removeFavRecipe(userRef, recipe);
+    return userDb.removeFavRecipe(userRef, recipeId);
   } catch (e) {
     throw new Error('failed to remove favourite recipe - check that it is actually bookmarked');
   }

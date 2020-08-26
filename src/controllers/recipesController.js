@@ -14,8 +14,9 @@ function addFavRecipe(req, res, next) {
 function removeFavRecipe(req, res, next) {
   const { recipeId } = req.params;
   console.log(`trying to delete bookmark ${recipeId}`);
-  recipesService.removeFavRecipe(req.user.id, recipeId).catch(err => { next(err); });
-  res.status(204).send();
+  recipesService.removeFavRecipe(req.user.id, recipeId)
+    .then(() => res.status(204).send())
+    .catch(err => { next(err); });
 }
 
 function getBookmarks(req, res, next) {

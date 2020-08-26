@@ -95,7 +95,7 @@ function addFavRecipe(userRef, recipe) {
 
 function removeFavRecipe(userRef, id) {
   console.log(`removing fav recipe from user with ref ${userRef}`);
-  getDataFromRef(userRef)
+  return getDataFromRef(userRef)
     .then(res => logAndReturn(res.data.recipes))
     .then(recipes => ({
       recipes: recipes.filter(item => {

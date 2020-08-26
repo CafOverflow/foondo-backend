@@ -35,6 +35,8 @@ app.post('/user', userController.createUser);
 app.post('/login', authController.login);
 
 app.use(authMiddleware.authenticateToken);
+
+// currently broken
 app.get('/user', userController.getUser);
 app.delete('/user', userController.deleteUser);
 
