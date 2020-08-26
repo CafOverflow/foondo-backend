@@ -3,16 +3,16 @@ Backend of fridge tracking and recipe look-up app
  
 
 ## How to Run
-### Keys: 
-You will need the keys (and an account) for the following:
+### Prerequisites: 
+You will need keys (and an account) for the following:
 
-  * Spoonacular on RapidAPI
+  * Spoonacular, via RapidAPI
   * FaunaDB
   * Sentry (Optional)
 
-### Install:
+### Installation:
 
-Before everything, make sure you have Node.js at least at version v14.5.0 by running `node -v` on your terminal.
+Before everything, make sure you have Node.js version 14.5.0 or later installed by running `node -v` in your terminal.
 
 Next, rename the .env_example file to .env and fill in your keys, and install the dependencies:
 
@@ -21,16 +21,16 @@ mv .env_example .env
 npm run install
 ```
 
-With your keys in place and express dependencies installed, you should be good to go. 
+With your keys in place and dependencies installed, you should be good to go. 
 
 ### Running:
 
-* To run at development mode with nodemon
+* To run in development mode with nodemon
 ``` shell 
 npm run restart
 ```
 
-* To run at production mode
+* To run in production mode
 ``` shell 
 npm run start-production
 ```
