@@ -11,9 +11,8 @@ function createUser(data) {
   //   ingredients: [],
   //   recipes: [],
   // };
-  const { name, password, email } = data;
+  const { password, email } = data;
   const user = {
-    name,
     password,
     email,
     diet: '',
