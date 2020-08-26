@@ -10,7 +10,6 @@ function logAndReturn(thing) {
 }
 
 function createUser(data) {
-  console.log(`creating user with name ${data.name}`);
   return fauna
     .create('users', data)
     .then(res => logAndReturn(res[0].ref.id))

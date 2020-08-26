@@ -26,8 +26,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 /* ROUTES */
 
 /* user */
+// request body must include { data: { email: kappa, password: kappa}}
+// returns 201
 app.post('/user', userController.createUser);
+
+// request body must include { data: { email: kappa, password: kappa}}
+// returns 201 with { jwt: kappa }
 app.post('/login', authController.login);
+
 app.use(authMiddleware.authenticateToken);
 app.get('/user', userController.getUser);
 app.delete('/user', userController.deleteUser);

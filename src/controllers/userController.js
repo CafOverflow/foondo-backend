@@ -2,8 +2,8 @@ const userService = require('../service/userService');
 
 function createUser(req, res) {
   const { data } = req.body;
-  userService.createUser(data);
-  return res.status(201);
+  userService.createUser(data)
+    .then(() => res.status(201).send());
 }
 
 function getUser(req, res) {

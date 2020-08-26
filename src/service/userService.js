@@ -5,7 +5,7 @@ function createUser(data) {
   const user = {
     password,
     email,
-    diet: '',
+    diet: 'None',
     intolerances: [],
     ingredients: [],
     recipes: [],
