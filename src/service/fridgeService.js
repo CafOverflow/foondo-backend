@@ -18,7 +18,7 @@ function removeIngredients(userRef, ingredientsIdList) {
 
 function getFridgeContents(userRef) {
   return userDb.getDataFromRef(userRef)
-    .then(data => data.data.fridge);
+    .then(data => data.data.ingredients);
 }
 
 module.exports = {
