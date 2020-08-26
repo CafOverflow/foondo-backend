@@ -10,6 +10,7 @@ const errorHandlerMiddleware = require('./middlewares/errorHandlerMiddleware');
 const authMiddleware = require('./middlewares/authMiddleware');
 const authController = require('./controllers/authController');
 const dietController = require('./controllers/dietController');
+const fridgeController = require('./controllers/fridgeController');
 
 const app = express();
 
@@ -44,6 +45,12 @@ app.get('/user/diet', dietController.getDiet);
 app.post('/user/diet', dietController.setDiet);
 app.get('/user/intolerances', dietController.getIntolerances);
 app.post('/user/intolerances', dietController.setIntolerances);
+
+/* fridge */
+app.get('/user/fridge', fridgeController.getFridgeContents);
+app.post('/user/fridge', fridgeController.addIngredients);
+app.delete('/user/fridge', fridgeController.removeIngredients);
+
 /* ERROR HANDLING */
 app.get('/debug-sentry', () => {
   throw new Error('Sentry error:');
