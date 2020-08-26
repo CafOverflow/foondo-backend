@@ -1,22 +1,22 @@
 const userService = require('../service/userService');
 
-function createUser(req, res) {
+function createUser(req, res, next) {
   const { data } = req.body;
   if (!data.email) {
-    throw new Error('User creation failed - no e-mail provided');
+    next(new Error('User creation failed - no e-mail provided'));
   }
   if (!data.password) {
-    throw new Error('User creation failed - no password provided');
+    next(new Error('User creation failed - no password provided'));
   }
   userService.createUser(data)
     .then(() => res.status(201).send())
-    .catch(err => { throw err; });
+    .catch(err => { next(err); });
 }
 
-function getUser(req, res) {
+function getUser(req, res, next) {
   const { email } = req.body;
   userService.getUser(email, user => res.status(200).json(user))
-    .catch(err => { throw err; });
+    .catch(err => { next(err); });
 }
 
 function deleteUser(req, res) {

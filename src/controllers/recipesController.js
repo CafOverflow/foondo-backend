@@ -1,46 +1,51 @@
 const recipesService = require('../service/recipesService');
 
-function addFavRecipe(req, res) {
+function addFavRecipe(req, res, next) {
   const { recipe } = req.body;
   recipe.id = String(recipe.id);
   try {
-    recipesService.addFavRecipe(req.user.id, recipe).catch(err => { throw err; });
+    recipesService.addFavRecipe(req.user.id, recipe).catch(err => { next(err); });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
   res.status(204).send();
 }
 
-function removeFavRecipe(req, res) {
+function removeFavRecipe(req, res, next) {
   const { recipeId } = req.params;
   console.log(`trying to delete bookmark ${recipeId}`);
-  recipesService.removeFavRecipe(req.user.id, recipeId).catch(err => { throw err; });
+  recipesService.removeFavRecipe(req.user.id, recipeId).catch(err => { next(err); });
   res.status(204).send();
 }
 
-function getBookmarks(req, res) {
+function getBookmarks(req, res, next) {
   recipesService.getBookmarks(req.user.id)
     .then(data => res.status(200).json(data))
-    .catch(err => { throw err; });
+    .catch(err => { next(err); });
 }
 
-async function getRecipesByIngredients(req, res) {
+async function getRecipesByIngredients(req, res, next) {
   const ingredientList = req.params.ingredients;
-
-  const recipeList = await recipesService.getRecipesByIngredients(ingredientList)
-    .catch(err => { throw err; });
-  res.status(200).json(recipeList);
+  try {
+    const recipeList = await recipesService.getRecipesByIngredients(ingredientList);
+    res.status(200).json(recipeList);
+  } catch (err) {
+    next(err);
+  }
 }
 
-async function ingredientsAutocomplete(req, res) {
+async function ingredientsAutocomplete(req, res, next) {
   const queryString = `${req.params.ingredient}`;
 
-  const ingredientList = await recipesService.ingredientsAutocomplete(queryString);
-
-  res.status(200).json(ingredientList);
+  try {
+    const ingredientList = await recipesService.ingredientsAutocomplete(queryString);
+    res.status(200).json(ingredientList);
+  } catch (err) {
+    next(err);
+  }
 }
 
-async function complexSearch(req, res) {
+async function complexSearch(req, res, next) {
   const queryString = req.query;
 
   const keys = Object.keys(queryString);
@@ -54,8 +59,12 @@ async function complexSearch(req, res) {
     return `${key}=${att}`;
   }).join('&');
 
-  const recipeList = await recipesService.complexSearch(query);
-  res.status(200).json(recipeList);
+  try {
+    const recipeList = await recipesService.complexSearch(query);
+    res.status(200).json(recipeList);
+  } catch (err) {
+    next(err);
+  }
 }
 
 module.exports = {
