@@ -77,6 +77,7 @@ function deleteUserByRef(ref) {
 
 function updateDetails(ref, data) {
   console.log(`updating details for user with ref ${ref}`);
+  console.log(data);
   return fauna
     .update('users', ref, data)
     .then(res => logAndReturn(res));
@@ -96,12 +97,12 @@ function addFavRecipe(userRef, recipe) {
     .then(recipes => {
       console.log(recipes);
       if (recipes.findIndex(item => recipe.id === item.id) !== -1) {
-        return { succeeded: false, recipes };
+        return { succeeded: false, recipes: { recipes } };
       }
-      return { succeeded: true, recipes: [recipe, ...recipes] };
+      return { succeeded: true, recipes: { recipes: [recipe, ...recipes] } };
     })
     .then(data => (data.succeeded
-      ? updateDetails(userRef, data)
+      ? updateDetails(userRef, data.recipes)
       : data.recipes))
     .catch(err => { throw err; });
 }
