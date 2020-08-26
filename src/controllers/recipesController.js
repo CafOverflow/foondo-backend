@@ -3,7 +3,6 @@ const recipesService = require('../service/recipesService');
 function addFavRecipe(req, res) {
   const { recipe } = req.body;
   recipe.id = String(recipe.id);
-  // userRef will be in the auth token
   try {
     recipesService.addFavRecipe(req.user.id, recipe);
   } catch (err) {
@@ -15,8 +14,6 @@ function addFavRecipe(req, res) {
 function removeFavRecipe(req, res) {
   const { recipeId } = req.params;
   console.log(`trying to delete bookmark ${recipeId}`);
-  // userRef will be in the auth token
-  // recipesService.removeFavRecipe(userRef, recipe);
   recipesService.removeFavRecipe(req.user.id, recipeId);
   res.status(204).send();
 }

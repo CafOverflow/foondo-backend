@@ -15,8 +15,6 @@ function addIngredients(req, res) {
 function removeIngredients(req, res) {
   const { ingredientIds } = req.body;
   console.log('trying to remove ingredients');
-  // userRef will be in the auth token
-  // recipesService.removeFavRecipe(userRef, recipe);
   fridgeService.removeIngredients(req.user.id, ingredientIds);
   res.status(204).send();
 }

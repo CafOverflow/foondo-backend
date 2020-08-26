@@ -32,8 +32,14 @@ app.use(authMiddleware.authenticateToken);
 app.get('/user', userController.getUser);
 app.delete('/user', userController.deleteUser);
 
+// general rules for user management of recipes and ingredients:
+// POST requests require one or more full objects, with an ID field
+// DELETE requests require one or more IDs
+// recipe endpoints accept one single object/ID per request
+// ingredient endpoints accept arrays of objects/IDs
+
 /* recipes */
-app.post('/recipes/bookmarks/', recipesController.addFavRecipe); // requires full recipe object in req.body.recipe
+app.post('/recipes/bookmarks/', recipesController.addFavRecipe);
 app.delete('/recipes/bookmarks/:recipeId', recipesController.removeFavRecipe);
 app.get('/recipes/bookmarks/', recipesController.getBookmarks);
 app.get('/recipes/searchByIngredients/:ingredients', recipesController.getRecipesByIngredients);

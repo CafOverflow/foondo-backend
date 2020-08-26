@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const FaunaConnection = require('faunadb-connector');
 
 require('dotenv').config();
@@ -11,16 +10,6 @@ function logAndReturn(thing) {
 }
 
 function createUser(data) {
-  // sample:
-  // data = {
-  //   name: 'kappa',
-  //   email: 'kappa@gmail.com',
-  //   password: 'secret',
-  //   diet: '',
-  //   intolerances: [],
-  //   ingredients: [],
-  //   recipes: [],
-  // };
   console.log(`creating user with name ${data.name}`);
   return fauna
     .create('users', data)
