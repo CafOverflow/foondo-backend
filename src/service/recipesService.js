@@ -46,9 +46,9 @@ async function ingredientsAutocomplete(queryString) {
   const parsedBody = body.map(ingredient => {
     const imageUrl = `https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`;
     return {
+      id: String(ingredient.id),
       name: ingredient.name,
       image: imageUrl,
-      id: ingredient.id,
     };
   });
 
@@ -72,7 +72,7 @@ async function complexSearch(queryString) {
     const ingredients = item.extendedIngredients.map(ingredient => {
       const imageUrl = `https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`;
       return {
-        id: ingredient.id,
+        id: String(ingredient.id),
         image: imageUrl,
         name: ingredient.name,
         amount: ingredient.amount,
@@ -96,7 +96,7 @@ async function complexSearch(queryString) {
       const instructionEquipment = instruction.equipment.map(equipment => {
         const imageUrl = `https://spoonacular.com/cdn/ingredients_100x100/${equipment.image}`;
         return {
-          id: equipment.id,
+          id: String(equipment.id),
           name: equipment.name,
           localizedName: equipment.localizedName,
           image: imageUrl,
@@ -106,7 +106,7 @@ async function complexSearch(queryString) {
       const instructionIngredients = instruction.ingredients.map(ingredient => {
         const imageUrl = `https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`;
         return {
-          id: ingredient.id,
+          id: String(ingredient.id),
           name: ingredient.name,
           localizedName: ingredient.localizedName,
           image: imageUrl,
@@ -122,7 +122,7 @@ async function complexSearch(queryString) {
     });
 
     return {
-      id: item.id,
+      id: String(item.id),
       title: item.title,
       readyInMinutes: item.readyInMinutes,
       servings: item.servings,
@@ -150,6 +150,7 @@ async function complexSearch(queryString) {
   });
 
   if (status === 200) {
+    // body = body.recipe;
     return parsedBody;
   } if (status === 404) {
     return {};
