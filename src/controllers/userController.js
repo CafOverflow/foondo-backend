@@ -2,13 +2,21 @@ const userService = require('../service/userService');
 
 function createUser(req, res) {
   const { data } = req.body;
+  if (!data.email) {
+    throw new Error('User creation failed - no e-mail provided');
+  }
+  if (!data.password) {
+    throw new Error('User creation failed - no password provided');
+  }
   userService.createUser(data)
-    .then(() => res.status(201).send());
+    .then(() => res.status(201).send())
+    .catch(err => { throw err; });
 }
 
 function getUser(req, res) {
   const { email } = req.body;
-  userService.getUser(email, user => res.status(200).json(user));
+  userService.getUser(email, user => res.status(200).json(user))
+    .catch(err => { throw err; });
 }
 
 function deleteUser(req, res) {

@@ -4,7 +4,7 @@ function addFavRecipe(req, res) {
   const { recipe } = req.body;
   recipe.id = String(recipe.id);
   try {
-    recipesService.addFavRecipe(req.user.id, recipe);
+    recipesService.addFavRecipe(req.user.id, recipe).catch(err => { throw err; });
   } catch (err) {
     console.log(err);
   }
@@ -14,19 +14,21 @@ function addFavRecipe(req, res) {
 function removeFavRecipe(req, res) {
   const { recipeId } = req.params;
   console.log(`trying to delete bookmark ${recipeId}`);
-  recipesService.removeFavRecipe(req.user.id, recipeId);
+  recipesService.removeFavRecipe(req.user.id, recipeId).catch(err => { throw err; });
   res.status(204).send();
 }
 
 function getBookmarks(req, res) {
   recipesService.getBookmarks(req.user.id)
-    .then(data => res.status(200).json(data));
+    .then(data => res.status(200).json(data))
+    .catch(err => { throw err; });
 }
 
 async function getRecipesByIngredients(req, res) {
   const ingredientList = req.params.ingredients;
 
-  const recipeList = await recipesService.getRecipesByIngredients(ingredientList);
+  const recipeList = await recipesService.getRecipesByIngredients(ingredientList)
+    .catch(err => { throw err; });
   res.status(200).json(recipeList);
 }
 
