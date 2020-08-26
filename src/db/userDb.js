@@ -16,11 +16,9 @@ function createUser(data) {
   //   name: 'kappa',
   //   email: 'kappa@gmail.com',
   //   password: 'secret',
-  //   diet: {
-  //     restrictions: [],
-  //     excluded: [],
-  //   }
-  //   fridges: [],
+  //   diet: '',
+  //   intolerances: [],
+  //   ingredients: [],
   //   recipes: [],
   // };
   console.log(`creating user with name ${data.name}`);

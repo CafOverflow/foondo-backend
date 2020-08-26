@@ -1,16 +1,24 @@
 const userDb = require('../db/userDb');
 
 function createUser(data) {
+  //   sample:
+  //   data = {
+  //   name: 'kappa',
+  //   email: 'kappa@gmail.com',
+  //   password: 'secret',
+  //   diet: '',
+  //   intolerances: [],
+  //   ingredients: [],
+  //   recipes: [],
+  // };
   const { name, password, email } = data;
   const user = {
     name,
     password,
     email,
-    diet: {
-      restrictions: [],
-      excluded: [],
-    },
-    fridges: [],
+    diet: '',
+    intolerances: [],
+    ingredients: [],
     recipes: [],
   };
   return userDb.createUser(user)
