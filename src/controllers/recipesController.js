@@ -13,7 +13,6 @@ function addFavRecipe(req, res, next) {
 
 function removeFavRecipe(req, res, next) {
   const { recipeId } = req.params;
-  console.log(`trying to delete bookmark ${recipeId}`);
   recipesService.removeFavRecipe(req.user.id, recipeId)
     .then(() => res.status(204).send())
     .catch(err => { next(err); });
@@ -52,11 +51,7 @@ async function complexSearch(req, res, next) {
   const keys = Object.keys(queryString);
 
   const query = keys.map(key => {
-    let att = queryString[key];
-    if (key !== 'intolerances' || key !== 'cuisine' || key !== 'includeIngredients') {
-      att = att.split(',').join('%2C');
-    }
-    att = att.split(' ').join('');
+    const att = queryString[key];
     return `${key}=${att}`;
   }).join('&');
 

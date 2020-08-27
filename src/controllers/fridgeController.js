@@ -11,7 +11,6 @@ function addIngredients(req, res, next) {
 
 function removeIngredients(req, res, next) {
   const { ingredientIds } = req.body;
-  console.log('trying to remove ingredients');
   fridgeService.removeIngredients(req.user.id, ingredientIds)
     .then(() => res.status(204).send())
     .catch(err => { next(err); });
