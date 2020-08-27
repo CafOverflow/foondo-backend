@@ -38,7 +38,6 @@ app.use(authMiddleware.authenticateToken);
 
 // currently broken
 app.get('/user', userController.getUser);
-app.delete('/user', userController.deleteUser);
 
 // general rules for user management of recipes and ingredients:
 // POST requests require one or more full objects, with an ID field

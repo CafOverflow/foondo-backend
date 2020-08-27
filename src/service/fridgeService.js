@@ -1,7 +1,6 @@
 const userDb = require('../db/userDb');
 
 function addIngredients(userRef, ingredientsList) {
-  console.log(ingredientsList);
   return userDb.getDataFromRef(userRef)
     .then(data => [...data.data.ingredients,
       ...ingredientsList.filter(item => item.id
@@ -10,7 +9,6 @@ function addIngredients(userRef, ingredientsList) {
 }
 
 function removeIngredients(userRef, ingredientsIdList) {
-  console.log(ingredientsIdList);
   return userDb.getDataFromRef(userRef)
     .then(data => data.data.ingredients.filter(item => !ingredientsIdList.includes(item.id)))
     .then(ingredients => userDb.updateDetails(userRef, { ingredients }));

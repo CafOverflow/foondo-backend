@@ -17,7 +17,6 @@ function createUser(data) {
 }
 
 function getDataFromRef(ref) {
-  console.log(`retreiving data for user ref ${ref}`);
   return fauna
     .get('users', ref)
     .then(res => logAndReturn(res))
@@ -25,14 +24,12 @@ function getDataFromRef(ref) {
 }
 
 function getRefFromName(name) {
-  console.log(`retreiving id for user name ${name}`);
   return fauna
     .getMatch('userByName', name)
     .then(res => logAndReturn(res.ref.id));
 }
 
 function getDataFromName(name) {
-  console.log(`retreiving data for user name ${name}`);
   return fauna
     .getMatch('userByName', name)
     .then(res => logAndReturn(res.data))
@@ -40,7 +37,6 @@ function getDataFromName(name) {
 }
 
 function getDataFromEmail(email) {
-  console.log(`retreiving data for user email ${email}`);
   return fauna
     .getMatch('userByEmail', email)
     .then(res => logAndReturn(res.data))
@@ -48,7 +44,6 @@ function getDataFromEmail(email) {
 }
 
 function getFromEmail(email) {
-  console.log(`retreiving all for user email ${email}`);
   return fauna
     .getMatch('userByEmail', email)
     .then(res => logAndReturn(res))
@@ -56,14 +51,11 @@ function getFromEmail(email) {
 }
 
 function deleteUserByRef(ref) {
-  console.log(`deleting document for ref ${ref}`);
   return fauna
     .delete('users', ref);
 }
 
 function updateDetails(ref, data) {
-  console.log(`updating details for user with ref ${ref}`);
-  console.log(data);
   return fauna
     .update('users', ref, data)
     .then(res => logAndReturn(res));
@@ -77,11 +69,9 @@ function addFridgeToUser(userRef, fridgeRef) {
 }
 
 function addFavRecipe(userRef, recipe) {
-  console.log(`adding fav recipe to user with ref ${userRef}`);
   return getDataFromRef(userRef)
     .then(res => logAndReturn(res.data.recipes))
     .then(recipes => {
-      console.log(recipes);
       if (recipes.findIndex(item => recipe.id === item.id) !== -1) {
         return { succeeded: false, recipes: { recipes } };
       }
@@ -94,13 +84,10 @@ function addFavRecipe(userRef, recipe) {
 }
 
 function removeFavRecipe(userRef, id) {
-  console.log(`removing fav recipe from user with ref ${userRef}`);
   return getDataFromRef(userRef)
     .then(res => logAndReturn(res.data.recipes))
     .then(recipes => ({
       recipes: recipes.filter(item => {
-        console.log('item.id', typeof item.id, item.id);
-        console.log('param id', typeof id, id);
         return item.id !== id;
       }),
     }))
@@ -108,19 +95,16 @@ function removeFavRecipe(userRef, id) {
 }
 
 function getFavRecipes(userRef) {
-  console.log(`retrieving fav recipes for user ref ${userRef}`);
   getDataFromRef(userRef)
     .then(res => res.data.recipes);
 }
 
 function getDiet(userRef) {
-  console.log(`retrieving dietary information for user ref ${userRef}`);
   return getDataFromRef(userRef)
     .then(res => logAndReturn(res.data.diet));
 }
 
 function getIntolerances(userRef) {
-  console.log(`retrieving intolerance information for user ref ${userRef}`);
   return getDataFromRef(userRef)
     .then(res => logAndReturn(res.data.intolerances));
 }

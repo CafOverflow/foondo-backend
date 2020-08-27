@@ -30,7 +30,6 @@ async function authenticate(email, password) {
     throw (validationResult.error);
   }
 
-  console.log(validationResult.user);
   const { id } = validationResult.user.ref;
   return generateAccessToken(id);
 }

@@ -63,7 +63,6 @@ async function ingredientsAutocomplete(queryString) {
 async function complexSearch(queryString) {
   const path = 'recipes/complexSearch';
   const query = `${queryString}&number=${returnedQuantity}&instructionsRequired=true&addRecipeInformation=true&fillIngredients=true&ignorePantry=true`;
-
   const { body, status } = await spoonacular.get(path, query);
 
   const { results } = body;

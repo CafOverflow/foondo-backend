@@ -19,14 +19,7 @@ function getUser(req, res, next) {
     .catch(err => { next(err); });
 }
 
-function deleteUser(req, res) {
-  const { email } = req.body;
-  console.log(email);
-  res.status(200).json('to be implemented');
-}
-
 module.exports = {
   createUser,
   getUser,
-  deleteUser,
 };
