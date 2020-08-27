@@ -87,9 +87,7 @@ function removeFavRecipe(userRef, id) {
   return getDataFromRef(userRef)
     .then(res => logAndReturn(res.data.recipes))
     .then(recipes => ({
-      recipes: recipes.filter(item => {
-        return item.id !== id;
-      }),
+      recipes: recipes.filter(item => item.id !== id),
     }))
     .then(data => updateDetails(userRef, data));
 }
